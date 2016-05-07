@@ -1,13 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Widgets = React.createClass({
-  render: function() {
-    return(
-      <Tabs items={ listOfTabs }></Tabs>
-    );
-  }
-});
+// Tabs Widget
+// ---------------------------------------------------------------------
 
 var Header = React.createClass({
   click: function (idx, event) {
@@ -59,6 +54,41 @@ var listOfTabs = [
   { title: 'About', content: 'About area' },
   { title: 'Blog', content: 'Blog area' }
 ]
+
+// Clock Widget
+// ---------------------------------------------------------------------
+
+var Clock = React.createClass({
+  getInitialState: function() {
+    return ({ time: new Date() })
+  },
+  componentDidMount: function() {
+    this.clockID = setInterval(function() {
+      this.setState({ time: new Date() })
+    }.bind(this), 60)
+  },
+  componentWillUnmount: function() {
+    window.clearInterval(this.clockID);
+  },
+  render: function() {
+    return(
+      <div>
+        { this.state.time.toString() }
+      </div>
+    )
+  }
+});
+
+var Widgets = React.createClass({
+  render: function() {
+    return(
+      <div>
+        <Clock/>
+        <Tabs items={ listOfTabs }></Tabs>
+      </div>
+    );
+  }
+});
 
 document.addEventListener("DOMContentLoaded", function () {
   ReactDOM.render(<Widgets />, document.getElementById('main'));
