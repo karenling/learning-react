@@ -55,7 +55,7 @@ var listOfTabs = [
   { title: 'Blog', content: 'Blog area' }
 ]
 
-// Clock Widget
+// Weather Clock Widget
 // ---------------------------------------------------------------------
 
 var Clock = React.createClass({
@@ -82,21 +82,40 @@ var Clock = React.createClass({
 var Weather = React.createClass({
   getInitialState: function() {
     return {
-      latitude: '',
-      longitude: ''
+      weather: '...',
+      temp: '...'
     }
   },
   componentDidMount: function() {
     navigator.geolocation.getCurrentPosition(function(position){
-      this.setState({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      })
+      var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&APPID=???'
+      
+      var request = new XMLHttpRequest();
+      request.open('GET', url, true);
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          var response = JSON.parse(request.responseText);
+          this.setState({
+            weather: response['weather'][0]['main'],
+            temp: response['main']['temp']
+          })
+        } else {
+          // error
+        }
+      }.bind(this)
+      request.onerror = function() {
+        // connection error
+      }
+      request.send();
     }.bind(this))
   },
   render: function() {
     return(
-      <div>{ this.state.latitude } { this.state.longitude }</div>
+      <div>
+        Current Weather: { this.state.weather }
+        <br />
+        Current Temperature: { this.state.temp }
+      </div>
     )
   }
 });
