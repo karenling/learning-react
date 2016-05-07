@@ -79,11 +79,34 @@ var Clock = React.createClass({
   }
 });
 
+var Weather = React.createClass({
+  getInitialState: function() {
+    return {
+      latitude: '',
+      longitude: ''
+    }
+  },
+  componentDidMount: function() {
+    navigator.geolocation.getCurrentPosition(function(position){
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      })
+    }.bind(this))
+  },
+  render: function() {
+    return(
+      <div>{ this.state.latitude } { this.state.longitude }</div>
+    )
+  }
+});
+
 var Widgets = React.createClass({
   render: function() {
     return(
       <div>
         <Clock/>
+        <Weather/>
         <Tabs items={ listOfTabs }></Tabs>
       </div>
     );
