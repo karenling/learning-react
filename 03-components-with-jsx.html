@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <script src="https://fb.me/react-0.14.2.js"></script>
+    <script src="https://fb.me/react-dom-0.14.2.js"></script>
+  </head>
+  <body>
+    <div id='my-component'></div>
+    <script type='text/javascript'>
+      var ClickCounter = React.createClass({
+        getInitialState: function(){
+          return {count: 0};
+        },
+        click: function(event){
+          event.preventDefault();
+          this.setState({count: this.state.count + 1});
+        },
+        render: function(){
+          return (
+            <div>
+              <button onClick={this.click}>CLICK ME</button>
+              <span>{this.state.count}</span>
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(
+          React.createElement(ClickCounter, {}, ''),
+          document.getElementById('my-component')
+      );
+    </script>
+  </body>
+</html>
