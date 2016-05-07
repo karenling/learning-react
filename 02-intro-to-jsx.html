@@ -1,0 +1,26 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <script src="https://fb.me/react-0.14.2.js"></script>
+    <script src="https://fb.me/react-dom-0.14.2.js"></script>
+  </head>
+  <body>
+    <script type='text/javascript'>
+      // JSX version
+      // ReactDOM.render(
+      //   <div className='true-statements'>I love JavaScript!</div>,
+      //   document.body
+      // );
+
+      // ReactDOM version
+      ReactDOM.render(
+        React.createElement(
+          'div',
+          { className: 'true-statements' },
+          'I love JavaScript'
+        ),
+        document.body
+      );
+    </script>
+  </body>
+</html>
