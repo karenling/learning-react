@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var Names = React.createClass({
   clickHandler: function(name, e) {
@@ -8,11 +9,13 @@ var Names = React.createClass({
   render: function() {
     return(
       <ul>
-        { this.props.names.map(function(name, idx) {
-          return(
-            <li onClick={ this.clickHandler.bind(this, name) } key={ idx }>{ name }</li>
-          )
-        }.bind(this)) }
+        <ReactCSSTransitionGroup transitionName='auto' transitionEnterTimeout={ 500 } transitionLeaveTimeout={ 500 }>
+          { this.props.names.map(function(name, idx) {
+            return(
+              <li onClick={ this.clickHandler.bind(this, name) } key={ idx }>{ name }</li>
+            )
+          }.bind(this)) }
+        </ReactCSSTransitionGroup>
       </ul>
     )
   }
