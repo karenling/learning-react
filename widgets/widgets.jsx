@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Autocomplete = require('./autocomplete');
 
 // Tabs Widget
 // ---------------------------------------------------------------------
@@ -89,7 +90,7 @@ var Weather = React.createClass({
   componentDidMount: function() {
     navigator.geolocation.getCurrentPosition(function(position){
       var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&APPID=???'
-      
+
       var request = new XMLHttpRequest();
       request.open('GET', url, true);
       request.onload = function() {
@@ -124,9 +125,10 @@ var Widgets = React.createClass({
   render: function() {
     return(
       <div>
-        <Clock/>
-        <Weather/>
-        <Tabs items={ listOfTabs }></Tabs>
+        <Autocomplete names={ ['Ashley', 'Anderson', 'Andrew', 'Ben', 'Jeffrey', 'Kiko', 'Tanner'] } />
+        <Clock />
+        <Weather />
+        <Tabs items={ listOfTabs } />
       </div>
     );
   }
